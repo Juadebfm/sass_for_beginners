@@ -14,28 +14,40 @@
 
 </div>
 
-- [What exactly is Sass](#what-exactly-is-sass)
-  - [Indented syntax](#indented-syntax)
-  - [SCSS syntax](#scss-syntax)
-  - [Nesting in Sass](#nesting-in-sass)
-  - [How Does Sass Work?](#how-does-sass-work)
-  - [Why should you use Sass?](#why-should-you-use-sass)
-  - [Features of Sass](#features-of-sass)
-    - [Variables in Sass](#variables-in-sass)
-  - [Parent Selector](#parent-selector)
-  - [Partials in Sass](#partials-in-sass)
-  - [Mixins in Sass](#mixins-in-sass)
-  - [Sass Functions and Operators](#sass-functions-and-operators)
-  - [How to Set Up Sass for VS Code](#how-to-set-up-sass-for-vs-code)
-    - [Step 1: Install Live Sass Compiler](#step-1-install-live-sass-compiler)
-    - [Step 2: Set the Save Location](#step-2-set-the-save-location)
-    - [Step 3: Compile Sass](#step-3-compile-sass)
-    - [Step 4: Link the CSS file](#step-4-link-the-css-file)
+- [History of SASS](#history-of-sass)
+- [What exactly is SASS](#what-exactly-is-sass)
+- [Difference between SASS \& SCSS](#difference-between-sass--scss)
+- [Indented syntax](#indented-syntax)
+- [SCSS syntax](#scss-syntax)
+- [Nesting in Sass](#nesting-in-sass)
+- [How Does Sass Work?](#how-does-sass-work)
+- [Why should you use Sass?](#why-should-you-use-sass)
+- [Features of Sass](#features-of-sass)
+  - [Variables in Sass](#variables-in-sass)
+- [Extend (@extend)](#extend-extend)
+- [Partials and modules](#partials-and-modules)
+- [Parent Selector](#parent-selector)
+- [Partials in Sass](#partials-in-sass)
+- [Mixins in Sass](#mixins-in-sass)
+- [Sass Functions and Operators](#sass-functions-and-operators)
+- [How to Set Up Sass for VS Code](#how-to-set-up-sass-for-vs-code)
+  - [Step 1: Install Live Sass Compiler](#step-1-install-live-sass-compiler)
+  - [Step 2: Set the Save Location](#step-2-set-the-save-location)
+  - [Step 3: Compile Sass](#step-3-compile-sass)
+  - [Step 4: Link the CSS file](#step-4-link-the-css-file)
 
-# What exactly is Sass
+## History of SASS
+
+There have been several different versions of Sass available over the years. Sass was first created in 2006 using Ruby. However, this version of Sass was deprecated and reached end-of-life in 2019. You shouldn’t use this version of Sass anymore. The main version of Sass currently is called Dart Sass. As the name implies, this version was created using Dart. Version 1.0.0 of Dart Sass was released in March 2018. Dart Sass is the version you’ll likely want to use when starting a new project. There was also another version of Sass called LibSass, which was deprecated in 2020.
+
+## What exactly is SASS
 
 Sass `(Syntactically Awesome Style Sheets)` is a CSS preprocessor that gives your CSS superpowers. Let's face it: writing CSS can be difficult at times, especially in today's world of increasingly complex user interfaces. And many times, you'll find that you're repeating yourself often. Sass comes to the rescue in this situation. It helps you stick to the DRY `(Do Not Repeat Yourself)` philosophy when writing CSS. Sass provides a compiler that allows us to write stylesheets in two different syntaxes, indented and SCSS.
 Let's look at each now :
+
+## Difference between SASS & SCSS
+
+Sass uses a different syntax that is indentation-based, similar to Python or Haml. It does not use semicolons or curly braces. Instead, it relies on indentation to indicate nesting and separate properties and values. Here's an example of Sass syntax: _Sass (Syntactically Awesome Style Sheets)_ and _SCSS (Sassy CSS)_ are both popular CSS preprocessors that extend the capabilities of standard CSS. While they are similar in many ways, there is one key difference in their syntax.
 
 ## Indented syntax
 
@@ -159,7 +171,32 @@ Here are some of the features that make Sass truly CSS with Superpowers:
 
 ### Variables in Sass
 
-You can declare variables in Sass. This is one of Sass's strengths since we can define variables for various properties and use them in any file. The benefit here is that if that value changes, you simply need to update a single line of code. This is done by naming a variable with a dollar symbol $ and then referencing it elsewhere in your code.
+Sass variables allow you to reuse the same value in multiple spots in your style sheet. This is accomplished by storing a value in a variable name and then referencing that variable name throughout your style sheet (see the code above for an example). You can store any CSS value: a color, a font, a width, etc.
+
+Variables in Sass start with a dollar sign and don’t have to be wrapped in curly brackets. This is one of Sass's strengths since we can define variables for various properties and use them in any file. The benefit here is that if that value changes, you simply need to update a single line of code. This is done by naming a variable with a dollar symbol $ and then referencing it elsewhere in your code.
+
+```scss
+$variable-name: value;
+```
+
+Using variables also means it’s easy to update multiple CSS rules at once. In the example above, I can change the $main-color variable to blue, which will automatically update the color property of the h1 tag and the background-color property of the p tag in the compiled CSS. This is easier than having to manually update each CSS rule where the color appears.
+
+```scss
+// Sass variable storing fonts
+$font-stack: Helvetica, sans-serif;
+
+// Sass variable storing a width value
+// Note: Variable names can be one word
+$width: 100px;
+
+body {
+  font: 100% $font-stack;
+}
+
+.rectangle {
+  width: $width;
+}
+```
 
 ```scss
 $primary-color: #24a0ed;
@@ -198,6 +235,80 @@ nav {
   }
 }
 ```
+
+## Extend (@extend)
+
+The _@extend_ rule in Sass allows you to group several CSS declarations together and reuse them in multiple rules. The _@extend_ feature uses the following format:
+
+```scss
+%custom-colors {
+  background-color: green;
+  color: yellow;
+}
+
+h1 {
+  @extend %custom-colors;
+}
+
+p {
+  @extend %custom-colors;
+}
+
+//compiled to
+p,
+h1 {
+  background-color: green;
+  color: yellow;
+}
+```
+
+The @extend rule in Sass allows you to group several CSS declarations together and reuse them in multiple rules. The @extend feature uses the following format:
+
+```scss
+%extend-selector-name {
+  property 1: value 1;
+  property 2: value 2;
+  // property 3...
+}
+
+.rule-1 {
+  @extend %extend-selector-name;
+}
+
+.rule-2 {
+  @extend %extend-selector-name;
+}
+```
+
+The type of selector at the top of the code snippet is called a placeholder selector and starts with a %. This selector won’t appear on its own in the CSS output, but its declarations will appear wherever it’s extended. It is also possible to extend an existing CSS rule:
+
+```scss
+.my-class {
+  background-color: green;
+  color: yellow;
+}
+
+.my-class-alternate {
+  @extend .my-class;
+  border: 1px black;
+}
+```
+
+## Partials and modules
+
+You can create a partial Sass file by adding an underscore to the beginning of the filename, like this: _colors.scss. To load a partial into another Sass file, use the following syntax at the top of your file:
+
+```scss
+@use 'colors';
+```
+
+You can split up your Sass code into multiple files and still have one CSS file in the end using partials and imports. You can create a partial Sass file by adding an underscore to the beginning of the filename. An example name could be _colors.scss._. The partial file will not be compiled into its own CSS file. Instead, to use the code you import it into a normal Sass file that will be compiled. To import a partial into another Sass file, you can use the following syntax at the top of your file:
+
+```scss
+@use 'colors';
+```
+
+Notice that you don’t need to include the underscore or the .scss file extension. The @use rule applies Dart Sass 1.23.0 and above. Older versions of Dart Sass used the @import rule, but that is now deprecated.
 
 ## Parent Selector
 
@@ -307,6 +418,12 @@ a:visited {
 ### Step 1: Install Live Sass Compiler
 
 First, launch Visual Studio Code. Once it's loaded, go to the side panel on the left and select the extensions tab. In the search bar, search for `Live Sass Compiler` and install it. This extension helps us to compile the Sass files — _.scss (or .sass)_ – into _.css_ files.
+
+**OR**
+
+```node
+npm install -g sass
+```
 
 ### Step 2: Set the Save Location
 
