@@ -1,0 +1,29 @@
+@mixin dark-btn {
+  width: 127px;
+  height: 42px;
+  background-color: $shoppy-dark-btn;
+  color: $shoppy-off-white;
+}
+
+@mixin light-btn {
+  width: 172px;
+  height: 44px;
+  background-color: transparent;
+  color: $shoppy-blue;
+}
+
+@mixin jd-flex-norm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin jd-flex-sb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin jd-container {
+  padding: 5px 6rem;
+}
