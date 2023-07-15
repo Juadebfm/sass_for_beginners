@@ -1,0 +1,7 @@
+text color h1 : #1E0E62\
+bg button: #25DAC5
+
+nav and muted text : #151439
+normal text : 18px weight 500
+
+hero p text : 22px #151439

@@ -35,6 +35,7 @@
   - [Step 2: Set the Save Location](#step-2-set-the-save-location)
   - [Step 3: Compile Sass](#step-3-compile-sass)
   - [Step 4: Link the CSS file](#step-4-link-the-css-file)
+- [How to use sass/scss in your react project](#how-to-use-sassscss-in-your-react-project)
 
 ## History of SASS
 
@@ -78,16 +79,26 @@ nav {
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-  li {
-    display: inline-block;
+      li {
+      display: inline-block;
+        a {
+        display: block;
+        text-decoration: none;
+    }
   }
 
-  a {
-    display: block;
-    text-decoration: none;
   }
+
+
 }
+
+<nav>
+  <ul>
+    <li>
+      <a></a>
+    </li>
+  </ul>
+</nav>
 ```
 
 ## Nesting in Sass
@@ -296,23 +307,23 @@ The type of selector at the top of the code snippet is called a placeholder sele
 
 ## Partials and modules
 
-You can create a partial Sass file by adding an underscore to the beginning of the filename, like this: _colors.scss. To load a partial into another Sass file, use the following syntax at the top of your file:
+You can create a partial Sass file by adding an underscore to the beginning of the filename, like this: \_colors.scss. To load a partial into another Sass file, use the following syntax at the top of your file:
 
 ```scss
-@use 'colors';
+@use "colors";
 ```
 
 You can split up your Sass code into multiple files and still have one CSS file in the end using partials and imports. You can create a partial Sass file by adding an underscore to the beginning of the filename. An example name could be _colors.scss._. The partial file will not be compiled into its own CSS file. Instead, to use the code you import it into a normal Sass file that will be compiled. To import a partial into another Sass file, you can use the following syntax at the top of your file:
 
 ```scss
-@use 'colors';
+@use "colors";
 ```
 
 Notice that you don’t need to include the underscore or the .scss file extension. The @use rule applies Dart Sass 1.23.0 and above. Older versions of Dart Sass used the @import rule, but that is now deprecated.
 
 ## Parent Selector
 
-In the Sass code above, you might notice the ampersand symbol _&_ used with the hover pseudo-class. This is called a Parent Selector.
+The ampersand symbol _&_ used with the hover pseudo-class. This is called a Parent Selector.
 
 **The parent selector, &, is a special selector invented by Sass that's used in nested selectors to refer to the outer selector. Source [Sass Documentation](https://sass-lang.com/documentation/style-rules/parent-selector/)**
 
@@ -487,4 +498,6 @@ Then, link the CSS file in your index.html. In our case:
 <link rel="stylesheet" href="/styles/main.css" />
 ```
 
-Now let's try a project.
+## How to use sass/scss in your react project
+
+Now let's try a project. [How to use sass in react](https://www.makeuseof.com/react-sass-how-use/)
